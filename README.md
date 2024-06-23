@@ -1,17 +1,17 @@
-# state_change_demo
+# SP_ELEC Mobile III
 
-States and how they affect each other
+This activity introduces to the using of http dependency which we'll be used in the rest API.
 
-## Getting Started
+# This is the Simple Post Demo Screen
 
-This project is a starting point for a Flutter application.
+## Models
 
-A few resources to get you started if this is your first Flutter project:
+# post.model.dart
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Utils
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-"# MAD3-Submission-2--Isidro-Masong-Riconalla" 
+# http_service.dart
+# post_card.dart
+# post_controller.dart
+
+
