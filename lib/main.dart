@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:state_change_demo/src/routing/router.dart';
 import 'package:state_change_demo/src/screens/rest_demo.dart';
 
 void main() {
@@ -20,15 +19,6 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const RestDemoScreen(),
-    );
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      routerConfig: GlobalRouter().router,
-      title: 'Stateful Changes Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
     );
   }
 }
