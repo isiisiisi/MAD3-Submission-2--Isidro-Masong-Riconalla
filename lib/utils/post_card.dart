@@ -1,59 +1,86 @@
 import 'package:flutter/material.dart';
 import 'package:state_change_demo/models/post.model.dart';
-import 'package:state_change_demo/src/screens/rest_demo.dart';
 import 'package:state_change_demo/utils/post_controller.dart';
+
+import '../src/screens/post_detailscreen.dart';
+import '../src/screens/rest_demo.dart';
 
 class PostCard extends StatelessWidget {
   final Post post;
   final PostController controller;
 
-  const PostCard({super.key, 
+  const PostCard({
+    super.key,
     required this.post,
     required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 8),
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              post.title,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 4),
-            Text(post.body),
-            ButtonBar(
-              alignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AddEditPostDialog(
-                          controller: controller,
-                          post: post,
-                        ),
-                      ),
-                    );
-                  },
-                  child: const Text("Edit"),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    showDeleteConfirmationDialog(context, post.id);
-                  },
-                  child: const Icon(Icons.delete),
-                ),
-              ],
-            ),
-          ],
+    return GestureDetector(
+      onTap: () {
+        _navigateToPostDetail(context, post.id);
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
         ),
+        margin: const EdgeInsets.only(bottom: 8),
+        elevation: 5,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                post.title,
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                post.body.length > 50 ? '${post.body.substring(0, 50)}...' : post.body,
+                style: const TextStyle(fontSize: 16, color: Colors.grey),
+              ),
+              const SizedBox(height: 16),
+              ButtonBar(
+                alignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddEditPostDialog(
+                            controller: controller,
+                            post: post,
+                          ),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.edit),
+                    label: const Text("Edit"),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      showDeleteConfirmationDialog(context, post.id);
+                    },
+                    icon: const Icon(Icons.delete),
+                    label: const Text("Delete"),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _navigateToPostDetail(BuildContext context, int postId) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PostDetailScreen(postId: postId),
       ),
     );
   }

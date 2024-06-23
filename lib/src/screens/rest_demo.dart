@@ -8,11 +8,12 @@ class RestDemoScreen extends StatefulWidget {
   const RestDemoScreen({super.key});
 
   @override
-  State<RestDemoScreen> createState() => _RestDemoScreenState();
+  _RestDemoScreenState createState() => _RestDemoScreenState();
 }
 
 class _RestDemoScreenState extends State<RestDemoScreen> {
   PostController controller = PostController();
+  bool showAllPosts = false;
 
   @override
   void initState() {
@@ -26,29 +27,32 @@ class _RestDemoScreenState extends State<RestDemoScreen> {
       appBar: AppBar(
         title: const Text("Posts"),
         leading: IconButton(
-            onPressed: () {
-              controller.getPosts();
-            },
-            icon: const Icon(Icons.refresh)),
+          onPressed: () {
+            controller.getPosts();
+          },
+          icon: const Icon(Icons.refresh),
+        ),
         actions: [
           IconButton(
-              onPressed: () {
-                showAddEditPostDialog(context);
-              },
-              icon: const Icon(Icons.add))
+            onPressed: () {
+              showAddEditPostDialog(context);
+            },
+            icon: const Icon(Icons.add),
+          ),
         ],
       ),
       body: SafeArea(
         child: AnimatedBuilder(
-            animation: controller,
-            builder: (context, _) {
-              if (controller.error != null) {
-                return Center(
-                  child: Text(controller.error.toString()),
-                );
-              }
+          animation: controller,
+          builder: (context, _) {
+            if (controller.error != null) {
+              return Center(
+                child: Text(controller.error.toString()),
+              );
+            }
 
-              if (!controller.working) {
+            if (!controller.working) {
+              if (showAllPosts) {
                 return ListView.builder(
                   padding: const EdgeInsets.all(16),
                   itemCount: controller.postList.length,
@@ -60,14 +64,40 @@ class _RestDemoScreenState extends State<RestDemoScreen> {
                     );
                   },
                 );
+              } else {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (controller.postList.isNotEmpty)
+                        PostCard(
+                          post: controller.postList.first,
+                          controller: controller,
+                        )
+                      else
+                        const Text("No posts available"),
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            showAllPosts = true;
+                          });
+                        },
+                        child: Text("See all posts (${controller.postList.length})"),
+                      ),
+                    ],
+                  ),
+                );
               }
-              return const Center(
-                child: SpinKitChasingDots(
-                  size: 54,
-                  color: Colors.black87,
-                ),
-              );
-            }),
+            }
+            return const Center(
+              child: SpinKitChasingDots(
+                size: 54,
+                color: Colors.black87,
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -82,6 +112,7 @@ class _RestDemoScreenState extends State<RestDemoScreen> {
     );
   }
 }
+
 class AddEditPostDialog extends StatefulWidget {
   final PostController controller;
   final Post? post;
