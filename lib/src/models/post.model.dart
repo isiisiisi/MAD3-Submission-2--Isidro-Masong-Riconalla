@@ -1,3 +1,5 @@
+
+
 import 'package:equatable/equatable.dart';
 
 class Post extends Equatable {
@@ -58,3 +60,4 @@ class Post extends Equatable {
     return 'Post{userId: $userId, id: $id, title: $title, body: $body}';
   }
 }
+
