@@ -83,7 +83,8 @@ class _RestDemoScreenState extends State<RestDemoScreen> {
                             showAllPosts = true;
                           });
                         },
-                        child: Text("See all posts (${controller.postList.length})"),
+                        child: Text(
+                            "See all posts (${controller.postList.length})"),
                       ),
                     ],
                   ),

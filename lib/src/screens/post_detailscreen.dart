@@ -31,7 +31,7 @@ class PostDetailScreen extends StatelessWidget {
           if (snapshot.hasData) {
             Post post = snapshot.data!;
             return Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -39,7 +39,7 @@ class PostDetailScreen extends StatelessWidget {
                     post.title,
                     style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 30),
                   Text(
                     post.body,
                     style: const TextStyle(fontSize: 18),

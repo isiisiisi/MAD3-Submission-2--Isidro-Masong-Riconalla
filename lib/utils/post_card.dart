@@ -26,9 +26,9 @@ class PostCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(15.0),
         ),
         margin: const EdgeInsets.only(bottom: 8),
-        elevation: 5,
+        elevation: 6,
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0, bottom: 6),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
